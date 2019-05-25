@@ -4,7 +4,7 @@ import os,glob
 import numpy as np
 from sklearn import model_selection
 
-classes = ["vehicle","bike","trafficlights"]
+classes = ["vehicle","bike","human"]
 num_classes = len(classes)
 image_size = 50
 num_testdata = 100

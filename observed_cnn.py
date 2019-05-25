@@ -5,7 +5,7 @@ from keras.utils import np_utils
 import keras
 import numpy as np
 
-classes = ["vehicle","bike","trafficlights"]
+classes = ["vehicle","bike","human"]
 num_classes = len(classes)
 image_size  = 50
 
@@ -27,6 +27,13 @@ def model_train(X,y):
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Dropout(0.25))
 
+    model.add(Conv2D(64,(3,3),padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(64,(3,3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Dropout(0.25))
+
     model.add(Flatten())
     model.add(Dense(512))
     model.add(Activation('relu'))
@@ -39,10 +46,10 @@ def model_train(X,y):
     model.compile(loss = 'categorical_crossentropy',
                         optimizer = opt,metrics = ['accuracy'])
 
-    model.fit(X,y,batch_size = 32,epochs = 70)
+    model.fit(X,y,batch_size = 32,epochs = 100)
 
     #モデルの保存
-    model.save('./observed_cnn_epoch=70.h5')
+    model.save('./observed_cnn_epoch=100.h5')
 
     return model
 
